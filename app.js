@@ -7,7 +7,6 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// Inizializza l'array con alcuni libri predefiniti
 let libri = [
     {
         codice: uuidv4(),
@@ -91,18 +90,17 @@ let libri = [
     }
 ];
 
-// Endpoint per ottenere tutti i libri
+
 app.get('/api/libri', (req, res) => {
     res.json(libri);
 });
 
-// Endpoint per ottenere un libro specifico
 app.get('/api/libri/:codice', (req, res) => {
     const libro = libri.find(l => l.codice === req.params.codice);
     libro ? res.json(libro) : res.status(404).json({ error: 'Libro non trovato' });
 });
 
-// Endpoint per aggiungere un nuovo libro
+
 app.post('/api/libri', (req, res) => {
     const { nome, descrizione, quantita, prezzo, autore } = req.body;
     const nuovoLibro = { codice: uuidv4(), nome, descrizione, quantita, prezzo, autore };
@@ -110,7 +108,7 @@ app.post('/api/libri', (req, res) => {
     res.status(201).json(nuovoLibro);
 });
 
-// Endpoint per eliminare un libro specifico
+
 app.delete('/api/libri/:codice', (req, res) => {
     const index = libri.findIndex(l => l.codice === req.params.codice);
     if (index !== -1) {
@@ -121,7 +119,7 @@ app.delete('/api/libri/:codice', (req, res) => {
     }
 });
 
-// Endpoint per incrementare la quantità di un libro
+
 app.get('/api/libri/:codice/incrementa', (req, res) => {
     const libro = libri.find(l => l.codice === req.params.codice);
     if (libro) {
@@ -143,10 +141,10 @@ app.get('/api/libri/:codice/decrementa', (req, res) => {
     }
 });
 
-// Avvia il server
+
 const server = app.listen(PORT, () => {
     console.log(`Server avviato sulla porta ${PORT}`);
 });
 
-// Esporta sia l'app che il server
+
 module.exports = { app, server };
