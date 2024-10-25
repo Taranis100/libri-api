@@ -35,4 +35,4 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Push Docker image to Docker Hub
-      run: docker push <dockerhub-username>/libri-api
+      run: docker push taranis100/libri-api
